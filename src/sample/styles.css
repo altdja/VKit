@@ -1,0 +1,6 @@
+.path_button{
+    -fx-background-image: url("../res/search.png");
+    -fx-background-size: 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
