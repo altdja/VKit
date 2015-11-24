@@ -19,4 +19,12 @@ public class Settings {
     public static String getGroupId() {
         return groupId;
     }
+
+    public static void setGroupId(String groupId) {
+        Settings.groupId = groupId;
+    }
+
+    public static void setFilePath(String filePath) {
+        Settings.filePath = filePath;
+    }
 }

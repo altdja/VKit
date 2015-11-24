@@ -1,27 +1,29 @@
 package sample;
 
+import bin.GetRequest;
+import bin.Settings;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
-
     @FXML
     private TextField path_to_file, url_to_group;
     @FXML
-    private Label status;
+    private TextArea status;
+    private String pathToFile, urlToGroup;
+
 
     @FXML protected void locateFile(EventType<MouseEvent> event) {
         DirectoryChooser chooser = new DirectoryChooser();
@@ -31,17 +33,27 @@ public class Controller {
             path_to_file.clear();
             path_to_file.appendText(file.getPath()+"\\");
         }catch (NullPointerException ex){
-            hashCode();
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @FXML protected void startScan(EventType<MouseEvent> event) {
+    @FXML protected void startScan(EventType<MouseEvent> event) throws ParseException {
         try {
-            if(url_to_group.getText() == null){
-                status.setText("Состояние: нет ссылки на группу...");
+            pathToFile = url_to_group.getText();
+            urlToGroup = path_to_file.getText();
+            status.appendText(String.valueOf(getCurrentTime()+" : Id группы: <"+url_to_group.getText()+">\n"));
+            status.appendText(String.valueOf(getCurrentTime()+" : Путь сохранения log файла: <"+path_to_file.getText()+">\n"));
+            Settings.setFilePath(pathToFile);
+            Settings.setGroupId(urlToGroup);
+            GetRequest.getRequest();
+            bin.JSONParser.parseCount();
+            if(bin.JSONParser.isIdErr() == true){
+                status.appendText(String.valueOf(getCurrentTime()+" : Id группы введен не верно, или с ошибкой!\n"));
+            }else{
+                status.appendText(String.valueOf(getCurrentTime()+" : Пинг сервера ВКонтакте успешно пройден!\n"));
             }
         }catch(NullPointerException ex){
-
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -51,7 +63,13 @@ public class Controller {
     }
 
     @FXML
-    void buttonGetIDClick() {
+    void buttonGetIDClick() throws ParseException {
         startScan(MouseEvent.MOUSE_CLICKED);
+    }
+
+    String getCurrentTime() {
+        Date now = new Date();
+        String time = DateFormat.getTimeInstance().format(now);
+        return time;
     }
 }

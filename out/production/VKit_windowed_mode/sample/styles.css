@@ -4,3 +4,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+.status{
+    -fx-background-color: aliceblue;
+    -fx-border-color: darkgray;
+}

@@ -1,6 +1,7 @@
 package bin;
 
 import org.json.simple.parser.ParseException;
+import sample.Controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,10 +33,10 @@ public class ServerRequest {
 
             switch (status){
                 case 200:
-                BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
                     sb.append(line+"\n");
                 }
                 br.close();

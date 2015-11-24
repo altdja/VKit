@@ -14,6 +14,10 @@ public class GetRequest {
         JSONdata = ServerRequest.getJSON("http://api.vk.com/method/groups.getMembers?group_id="+ Settings.getGroupId()+"&offset="+offset+"&count=1000", 5000);
     }
 
+    public static void setJSONdata(String JSONdata) {
+        GetRequest.JSONdata = JSONdata;
+    }
+
     public static String getJSONdata() {
         return JSONdata;
     }
