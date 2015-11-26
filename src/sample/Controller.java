@@ -1,5 +1,6 @@
 package sample;
 
+import bin.FileWriter;
 import bin.GetRequest;
 import bin.Settings;
 import javafx.event.EventType;
@@ -25,9 +26,8 @@ public class Controller {
     @FXML
     private TextField path_to_file, url_to_group;
     @FXML
-    private TextArea status;
+    public TextArea status;
     private String pathToFile, urlToGroup;
-
 
     @FXML protected void locateFile(EventType<MouseEvent> event) {
         DirectoryChooser chooser = new DirectoryChooser();
@@ -45,15 +45,15 @@ public class Controller {
         try {
             pathToFile = path_to_file.getText();
             urlToGroup = url_to_group.getText();
-            status.appendText(String.valueOf(getCurrentTime()+" : Id группы: <"+url_to_group.getText()+">\n"));
-            status.appendText(String.valueOf(getCurrentTime()+" : Путь сохранения log файла: <"+path_to_file.getText()+">\n"));
             Settings.setFilePath(pathToFile);
             Settings.setGroupId(urlToGroup);
             bin.JSONParser.pingGroupId();
             if(bin.JSONParser.isIdErr() == true){
                 status.appendText(String.valueOf(getCurrentTime()+" : Id группы введен не верно, или с ошибкой!\n"));
             }else{
-                status.appendText(String.valueOf(getCurrentTime()+" : Пинг сервера ВКонтакте успешно пройден!\n"));
+                status.appendText(String.valueOf(getCurrentTime()+" : Пинг сервера ВКонтакте успешно пройден.\n"));
+                bin.JSONParser.parseIdRepeat();
+                FileWriter.fileWriter();
             }
         }catch(NullPointerException ex){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
@@ -73,5 +73,9 @@ public class Controller {
     String getCurrentTime() {
         Date now = new Date();
         return DateFormat.getTimeInstance().format(now);
+    }
+
+    void statusTextOut() {
+
     }
 }

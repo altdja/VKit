@@ -2,14 +2,14 @@ package bin;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import sample.Controller;
 
 /**
  * Created by ALT on 06.11.2015.
  */
 
 public class JSONParser {
-    private static String count, pingGroupId;
-    private static String fullIdList = "", tempIdList = "";
+    private static String count, pingGroupId, fullIdList = "", tempIdList = "";
     private static boolean idErr = false;
     private static int idGetRequestRetry;
 
@@ -29,6 +29,7 @@ public class JSONParser {
         parseCount();
         idGetRequestRetry = Integer.parseInt(count) / 1000;
         System.out.println("Count: "+count);
+
         System.out.println("Total response: "+idGetRequestRetry);
         for (int i = 0; i <= idGetRequestRetry; i++) {
             GetRequest.setOffset(i*1000);
