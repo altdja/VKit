@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Created by ALT on 06.11.2015.
+ */
+
 public class Controller {
     @FXML
     private TextField path_to_file, url_to_group;
@@ -33,20 +37,19 @@ public class Controller {
             path_to_file.clear();
             path_to_file.appendText(file.getPath()+"\\");
         }catch (NullPointerException ex){
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            path_to_file.setText("C:\\VKit\\");
         }
     }
 
     @FXML protected void startScan(EventType<MouseEvent> event) throws ParseException {
         try {
-            pathToFile = url_to_group.getText();
-            urlToGroup = path_to_file.getText();
+            pathToFile = path_to_file.getText();
+            urlToGroup = url_to_group.getText();
             status.appendText(String.valueOf(getCurrentTime()+" : Id группы: <"+url_to_group.getText()+">\n"));
             status.appendText(String.valueOf(getCurrentTime()+" : Путь сохранения log файла: <"+path_to_file.getText()+">\n"));
             Settings.setFilePath(pathToFile);
             Settings.setGroupId(urlToGroup);
-            GetRequest.getRequest();
-            bin.JSONParser.parseCount();
+            bin.JSONParser.pingGroupId();
             if(bin.JSONParser.isIdErr() == true){
                 status.appendText(String.valueOf(getCurrentTime()+" : Id группы введен не верно, или с ошибкой!\n"));
             }else{
@@ -69,7 +72,6 @@ public class Controller {
 
     String getCurrentTime() {
         Date now = new Date();
-        String time = DateFormat.getTimeInstance().format(now);
-        return time;
+        return DateFormat.getTimeInstance().format(now);
     }
 }

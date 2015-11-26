@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 /**
  * Created by ALT on 02.11.2015.
  */
+
 public class ServerRequest {
 
     public String getJSON(String url, int timeout) throws ParseException {
@@ -43,15 +44,6 @@ public class ServerRequest {
                 return sb.toString();
             }
         } catch (IOException ex) {
-            System.out.println("\nINTERNET_DISCONNECTED_ERR2. Retry? y/n");
-            Scanner read = new Scanner(System.in);
-            String read2 = read.nextLine();
-
-            if(read2.charAt(0) == 'y'){
-                JSONParser.parseIdRepeat();
-            }else{
-                System.exit(0);
-            }
         } finally {
             if (connect != null) {
                 try {

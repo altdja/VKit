@@ -8,9 +8,9 @@ import org.json.simple.parser.ParseException;
  */
 
 public class JSONParser {
-    private static String count, test;
-    private static boolean idErr = false;
+    private static String count, pingGroupId;
     private static String fullIdList = "", tempIdList = "";
+    private static boolean idErr = false;
     private static int idGetRequestRetry;
 
     public static boolean isIdErr() {
@@ -38,17 +38,24 @@ public class JSONParser {
         System.out.println("\nDone!");
     }
 
+    public static void pingGroupId() throws ParseException {
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        GetRequest.getRequest();
+        Object object = parser.parse(GetRequest.getJSONdata());
+        JSONObject jsonObject = (JSONObject) object;
+        pingGroupId = String.valueOf(jsonObject);
+        boolean checkId = pingGroupId.contains("response");
+        if(checkId == true){
+            idErr = false;
+        }else{
+            idErr = true;
+        }
+    }
+
     public static void parseCount() throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         GetRequest.getRequest();
         Object object = parser.parse(GetRequest.getJSONdata());
-        try {
-            JSONObject jsonObject = (JSONObject) object;
-            if(jsonObject.get("error") == "error"){
-                idErr = true;
-            }
-        }catch (NullPointerException ex) {
-        }
         JSONObject jsonObject = (JSONObject) object;
         JSONObject jsonObjectInner = (JSONObject) jsonObject.get("response");
         count = String.valueOf(jsonObjectInner.get("count"));
