@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="350.0" prefWidth="350.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="350.0" prefWidth="350.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <children>
       <Button fx:id="path_button" layoutX="314.0" layoutY="73.0" mnemonicParsing="false" onAction="#buttonPathClick" prefHeight="25.0" prefWidth="30.0" styleClass="path_button" stylesheets="@styles.css" />
-      <TextField fx:id="path_to_file" layoutX="77.0" layoutY="73.0" prefHeight="25.0" prefWidth="232.0" promptText="Путь сохранения файла..." text="C:\Vkit\" />
-      <Label layoutX="136.0" layoutY="9.0" text="VKit v.0.4b">
+      <TextField fx:id="path_to_file" layoutX="77.0" layoutY="73.0" prefHeight="25.0" prefWidth="232.0" promptText="Путь сохранения файла..." text="C:\VKit\" />
+      <Label layoutX="136.0" layoutY="9.0" text="VKit v.0.9b">
          <font>
             <Font name="Consolas Bold" size="13.0" />
          </font>

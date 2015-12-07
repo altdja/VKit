@@ -2,7 +2,6 @@ package bin;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import sample.Controller;
 
 /**
  * Created by ALT on 06.11.2015.
@@ -28,15 +27,15 @@ public class JSONParser {
     public static void parseIdRepeat() throws ParseException {
         parseCount();
         idGetRequestRetry = Integer.parseInt(count) / 1000;
-        System.out.println("Count: "+count);
-
-        System.out.println("Total response: "+idGetRequestRetry);
+        System.out.println(CurentTime.getCurrentTime()+"Count: "+count);
+        System.out.println(CurentTime.getCurrentTime()+"Total response: "+idGetRequestRetry);
         for (int i = 0; i <= idGetRequestRetry; i++) {
             GetRequest.setOffset(i*1000);
             parseId();
-            System.out.print("\rResponse: "+i);
+            System.out.println(CurentTime.getCurrentTime()+"Response: "+i+"...Done!");
+            System.out.flush();
         }
-        System.out.println("\nDone!");
+        System.out.println(CurentTime.getCurrentTime()+ "Done!");
     }
 
     public static void pingGroupId() throws ParseException {
@@ -46,11 +45,7 @@ public class JSONParser {
         JSONObject jsonObject = (JSONObject) object;
         pingGroupId = String.valueOf(jsonObject);
         boolean checkId = pingGroupId.contains("response");
-        if(checkId == true){
-            idErr = false;
-        }else{
-            idErr = true;
-        }
+        idErr = checkId != true;
     }
 
     public static void parseCount() throws ParseException {
