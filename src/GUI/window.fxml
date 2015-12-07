@@ -8,7 +8,7 @@
    <children>
       <Button fx:id="path_button" layoutX="314.0" layoutY="73.0" mnemonicParsing="false" onAction="#buttonPathClick" prefHeight="25.0" prefWidth="30.0" styleClass="path_button" stylesheets="@styles.css" />
       <TextField fx:id="path_to_file" layoutX="77.0" layoutY="73.0" prefHeight="25.0" prefWidth="232.0" promptText="Путь сохранения файла..." text="C:\VKit\" />
-      <Label layoutX="136.0" layoutY="9.0" text="VKit v.0.9b">
+      <Label layoutX="136.0" layoutY="9.0" text="VKit v.1.1">
          <font>
             <Font name="Consolas Bold" size="13.0" />
          </font>
