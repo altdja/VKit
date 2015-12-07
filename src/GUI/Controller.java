@@ -8,13 +8,13 @@ import javafx.application.Platform;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,7 +42,7 @@ public class Controller implements Initializable {
 
     @FXML protected void locateFile(EventType<MouseEvent> event) {
         DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Open File");
+        chooser.setTitle("Выбор папки");
         File file = chooser.showDialog(new Stage());
         try{
             path_to_file.clear();
@@ -53,8 +53,10 @@ public class Controller implements Initializable {
     }
 
     @FXML protected void startScan(EventType<MouseEvent> event) throws ParseException {
-            new NewThread();
+                new NewThread();
+
     }
+
 
     @FXML
     void buttonPathClick() {
@@ -83,7 +85,7 @@ public class Controller implements Initializable {
 
         NewThread() {
             thread = new Thread(this, "Background thread");
-            thread.start(); // Запускаем поток
+            thread.start();
         }
 
         public void run() {
@@ -93,14 +95,14 @@ public class Controller implements Initializable {
                 Settings.setFilePath(pathToFile);
                 Settings.setGroupId(urlToGroup);
                 bin.JSONParser.pingGroupId();
-                if(bin.JSONParser.isIdErr() == true){
-                    status.appendText(String.valueOf(CurentTime.getCurrentTime()+"Id группы введен не верно, или с ошибкой!\n"));
-                }else{
-                    status.appendText(String.valueOf(CurentTime.getCurrentTime()+"Пинг сервера ВКонтакте успешно пройден.\n"));
+                if (bin.JSONParser.isIdErr() == true) {
+                    status.appendText(String.valueOf(CurentTime.getCurrentTime() + "Id группы введен не верно, или с ошибкой!\n"));
+                } else {
+                    status.appendText(String.valueOf(CurentTime.getCurrentTime() + "Пинг сервера ВКонтакте успешно пройден.\n"));
                     JSONParser.parseIdRepeat();
                     FileWriter.fileWriter();
                 }
-            }catch(NullPointerException ex){
+            } catch (NullPointerException ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException e) {
                 e.printStackTrace();

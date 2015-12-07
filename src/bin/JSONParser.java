@@ -27,44 +27,56 @@ public class JSONParser {
     public static void parseIdRepeat() throws ParseException {
         parseCount();
         idGetRequestRetry = Integer.parseInt(count) / 1000;
-        System.out.println(CurentTime.getCurrentTime()+"Count: "+count);
-        System.out.println(CurentTime.getCurrentTime()+"Total response: "+idGetRequestRetry);
+        System.out.println(CurentTime.getCurrentTime()+"Count : "+count);
+        System.out.println(CurentTime.getCurrentTime()+"Response : "+idGetRequestRetry);
         for (int i = 0; i <= idGetRequestRetry; i++) {
             GetRequest.setOffset(i*1000);
             parseId();
-            System.out.println(CurentTime.getCurrentTime()+"Response: "+i+"...Done!");
-            System.out.flush();
+            System.out.println(CurentTime.getCurrentTime()+"Response "+i+" of "+idGetRequestRetry+"...OK!");
         }
         System.out.println(CurentTime.getCurrentTime()+ "Done!");
     }
 
     public static void pingGroupId() throws ParseException {
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        GetRequest.getRequest();
-        Object object = parser.parse(GetRequest.getJSONdata());
-        JSONObject jsonObject = (JSONObject) object;
-        pingGroupId = String.valueOf(jsonObject);
-        boolean checkId = pingGroupId.contains("response");
-        idErr = checkId != true;
+        try {
+            org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+            GetRequest.getRequest();
+            Object object = parser.parse(GetRequest.getJSONdata());
+            JSONObject jsonObject = (JSONObject) object;
+            pingGroupId = String.valueOf(jsonObject);
+            boolean checkId = pingGroupId.contains("response");
+            idErr = checkId != true;
+        }catch (NullPointerException ex) {
+            pingGroupId();
+            idErr = false;
+        }
     }
 
     public static void parseCount() throws ParseException {
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        GetRequest.getRequest();
-        Object object = parser.parse(GetRequest.getJSONdata());
-        JSONObject jsonObject = (JSONObject) object;
-        JSONObject jsonObjectInner = (JSONObject) jsonObject.get("response");
-        count = String.valueOf(jsonObjectInner.get("count"));
+        try {
+            org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+            GetRequest.getRequest();
+            Object object = parser.parse(GetRequest.getJSONdata());
+            JSONObject jsonObject = (JSONObject) object;
+            JSONObject jsonObjectInner = (JSONObject) jsonObject.get("response");
+            count = String.valueOf(jsonObjectInner.get("count"));
+        }catch (NullPointerException ex) {
+            parseCount();
+        }
     }
 
     public static void parseId() throws ParseException {
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        GetRequest.getRequest();
-        Object object = parser.parse(GetRequest.getJSONdata());
-        JSONObject jsonObject = (JSONObject) object;
-        JSONObject jsonObjectInner = (JSONObject) jsonObject.get("response");
-        tempIdList = String.valueOf(jsonObjectInner.get("users"));
-        removeGarbage();
+        try {
+            org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+            GetRequest.getRequest();
+            Object object = parser.parse(GetRequest.getJSONdata());
+            JSONObject jsonObject = (JSONObject) object;
+            JSONObject jsonObjectInner = (JSONObject) jsonObject.get("response");
+            tempIdList = String.valueOf(jsonObjectInner.get("users"));
+            removeGarbage();
+        }catch (NullPointerException ex) {
+            parseId();
+        }
     }
 
     public static void removeGarbage () {
