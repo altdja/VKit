@@ -97,8 +97,8 @@ public class Controller implements Initializable {
                     status.appendText(String.valueOf(CurentTime.getCurrentTime()+"Id группы введен не верно, или с ошибкой!\n"));
                 }else{
                     status.appendText(String.valueOf(CurentTime.getCurrentTime()+"Пинг сервера ВКонтакте успешно пройден.\n"));
-                    FileWriter.fileWriter();
                     JSONParser.parseIdRepeat();
+                    FileWriter.fileWriter();
                 }
             }catch(NullPointerException ex){
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
