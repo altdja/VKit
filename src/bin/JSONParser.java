@@ -9,11 +9,14 @@ import org.json.simple.parser.ParseException;
 
 public class JSONParser {
     private static String count, pingGroupId, fullIdList = "", tempIdList = "";
-    private static boolean idErr = false;
-    private static int idGetRequestRetry;
 
+    private static boolean idErr = false;
     public static boolean isIdErr() {
         return idErr;
+    }
+
+    public static String getCount() {
+        return count;
     }
 
     public static String getFullIdList() {
@@ -25,16 +28,7 @@ public class JSONParser {
     }
 
     public static void parseIdRepeat() throws ParseException {
-        parseCount();
-        idGetRequestRetry = Integer.parseInt(count) / 1000;
-        System.out.println(CurentTime.getCurrentTime()+"Count : "+count);
-        System.out.println(CurentTime.getCurrentTime()+"Response : "+idGetRequestRetry);
-        for (int i = 0; i <= idGetRequestRetry; i++) {
-            GetRequest.setOffset(i*1000);
-            parseId();
-            System.out.println(CurentTime.getCurrentTime()+"Response "+i+" of "+idGetRequestRetry+"...OK!");
-        }
-        System.out.println(CurentTime.getCurrentTime()+ "Done!");
+        //Рудимент!!!Без него не работает, УБРАТЬ!
     }
 
     public static void pingGroupId() throws ParseException {

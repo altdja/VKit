@@ -5,6 +5,15 @@
     -fx-background-position: center;
 }
 .status{
-    -fx-background-color: aliceblue;
+    -fx-background-color: ghostwhite;
     -fx-border-color: darkgray;
+}
+.logo_img{
+    -fx-background-image: url("../res/logo.png");
+    -fx-background-size: 90px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.main_window{
+    -fx-background-color: whitesmoke;
 }

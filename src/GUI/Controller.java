@@ -1,14 +1,11 @@
 package gui;
 
-import bin.CurentTime;
-import bin.FileWriter;
-import bin.JSONParser;
-import bin.Settings;
-import javafx.application.Platform;
+import bin.*;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -16,9 +13,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,18 +23,55 @@ import java.util.logging.Logger;
  */
 
 public class Controller implements Initializable {
-    @FXML
-    private TextField path_to_file, url_to_group;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        status.setText(CurentTime.getCurrentTime()+"Программа запущенна.\n");
+    }
+
+    Core core;
+    public Controller() {
+        this.core = new Core(this);
+    }
 
     @FXML
     public TextArea status;
-    private String pathToFile, urlToGroup;
-
-    public void appendText(String str) {
-        Platform.runLater(() -> status.appendText(str));
+    public TextArea getStatus() {
+        return status;
     }
 
-    @FXML protected void locateFile(EventType<MouseEvent> event) {
+    @FXML
+    private TextField path_to_file, url_to_group;
+    public TextField getPath_to_file() {
+        return path_to_file;
+    }
+    public TextField getUrl_to_group() {
+        return url_to_group;
+    }
+
+
+    public Button startButton;
+    private boolean buttonClicked = false;
+    public Button getStartButton() {
+        return startButton;
+    }
+    public boolean isButtonClicked() {
+        return buttonClicked;
+    }
+    public void setButtonClicked(boolean buttonClicked) {
+        this.buttonClicked = buttonClicked;
+    }
+
+    public ProgressBar progressBar;
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+
+    @FXML
+    void buttonPathClick() {
+        locateFile(MouseEvent.MOUSE_CLICKED);
+    }
+    private void locateFile(EventType<MouseEvent> event) {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Выбор папки");
         File file = chooser.showDialog(new Stage());
@@ -52,61 +83,9 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML protected void startScan(EventType<MouseEvent> event) throws ParseException {
-                new NewThread();
-
-    }
-
-
-    @FXML
-    void buttonPathClick() {
-        locateFile(MouseEvent.MOUSE_CLICKED);
-    }
-
     @FXML
     void buttonGetIDClick() throws ParseException {
-        startScan(MouseEvent.MOUSE_CLICKED);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        status.setText(CurentTime.getCurrentTime()+"Программа запущенна.\n");
-        OutputStream out = new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                appendText(String.valueOf((char) b));
-            }
-        };
-        System.setOut(new PrintStream(out, true));
-    }
-
-    class NewThread implements Runnable {
-        Thread thread;
-
-        NewThread() {
-            thread = new Thread(this, "Background thread");
-            thread.start();
-        }
-
-        public void run() {
-            try {
-                pathToFile = path_to_file.getText();
-                urlToGroup = url_to_group.getText();
-                Settings.setFilePath(pathToFile);
-                Settings.setGroupId(urlToGroup);
-                bin.JSONParser.pingGroupId();
-                if (bin.JSONParser.isIdErr() == true) {
-                    status.appendText(String.valueOf(CurentTime.getCurrentTime() + "Id группы введен не верно, или с ошибкой!\n"));
-                } else {
-                    status.appendText(String.valueOf(CurentTime.getCurrentTime() + "Пинг сервера ВКонтакте успешно пройден.\n"));
-                    JSONParser.parseIdRepeat();
-                    FileWriter.fileWriter();
-                }
-            } catch (NullPointerException ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        Core.startProgram();
+        progressBar.progressProperty().bind(core.getTask().progressProperty());
     }
 }
