@@ -1,6 +1,7 @@
 package bin;
 
 import gui.Controller;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 /**
@@ -49,16 +50,22 @@ public class Core {
                         controller.getStatus().appendText(CurentTime.getCurrentTime() + "Всего запросов : " + idGetRequestRetry + "\n");
                         for (int i = 0; i <= idGetRequestRetry; i++) {
                             if (isCancelled()) {
+                                updateProgress(0, 0);
+                                controller.getStatus().appendText(CurentTime.getCurrentTime() + "Отмена.\n");
                                 break;
                             }else{
                                 GetRequest.setOffset(i * 1000);
                                 JSONParser.parseId();
-                                controller.getStatus().appendText(CurentTime.getCurrentTime() + "Запрос " + i + " из " + idGetRequestRetry + "...OK!\n");
+                                controller.getStatus().appendText(CurentTime.getCurrentTime() + "Запрос " + i + " из " + idGetRequestRetry + "...ОК\n");
                                 updateProgress(i, idGetRequestRetry);
                             }
                         }
                         controller.getStatus().appendText(CurentTime.getCurrentTime() + "Готово!\n");
                         FileWriter.fileWriter();
+                        Platform.runLater(() -> {
+                            controller.getStartButton().setText("Получить ID");
+                            controller.setButtonClicked(false);
+                        });
                     }
                     return null;
                 }
@@ -68,7 +75,6 @@ public class Core {
             new Thread(task).start();
         }else{
             task.cancel();
-            controller.getStatus().appendText(CurentTime.getCurrentTime() + "Процесс отменен!\n");
             controller.getStartButton().setText("Получить ID");
             controller.setButtonClicked(false);
         }

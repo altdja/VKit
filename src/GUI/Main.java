@@ -13,7 +13,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("window.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("VKit v.1.3");
-        primaryStage.setScene(new Scene(root, 355, 460));
+        primaryStage.setScene(new Scene(root, 355, 485));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

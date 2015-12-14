@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="472.0" prefWidth="366.0" styleClass="main_window" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<AnchorPane styleClass="main_window" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <children>
-      <Button fx:id="path_button" layoutX="325.0" layoutY="165.0" mnemonicParsing="false" onAction="#buttonPathClick" prefHeight="25.0" prefWidth="30.0" styleClass="path_button" stylesheets="@styles.css" />
+      <Button fx:id="path_button" layoutX="325.0" layoutY="165.0" mnemonicParsing="false" onAction="#buttonPathClick" prefHeight="25.0" prefWidth="30.0" stylesheets="@styles.css" text="..." />
       <TextField fx:id="path_to_file" layoutX="88.0" layoutY="165.0" prefHeight="25.0" prefWidth="232.0" promptText="Путь сохранения файла..." text="C:\VKit\" />
       <Label fx:id="logo_version" layoutX="151.0" layoutY="101.0" text="VKit v.1.3">
          <font>
@@ -20,8 +20,17 @@
       <Label alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="52.0" layoutY="169.0" prefHeight="17.0" prefWidth="30.0" text="Путь:" textAlignment="CENTER" />
       <Button fx:id="startButton" layoutX="133.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonGetIDClick" prefWidth="100.0" text="Получить ID" />
       <Label layoutX="21.0" layoutY="236.0" prefHeight="17.0" prefWidth="62.0" text="Состояние:" />
-      <TextArea fx:id="status" editable="false" layoutX="9.0" layoutY="261.0" prefHeight="200.0" prefWidth="347.0" styleClass="status" wrapText="true" />
       <ProgressBar fx:id="progressBar" layoutX="88.0" layoutY="236.0" prefHeight="18.0" prefWidth="267.0" progress="0.0" />
       <Pane fx:id="logo_img" layoutX="143.0" layoutY="14.0" prefHeight="83.0" prefWidth="89.0" styleClass="logo_img" />
+      <Accordion layoutX="67.0" layoutY="424.0" />
+    <TitledPane expanded="false" layoutY="265.0" prefHeight="230.0" prefWidth="366.0" text="Подбробности">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <TextArea fx:id="status" editable="false" styleClass="status" wrapText="true" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </content>
+    </TitledPane>
    </children>
 </AnchorPane>

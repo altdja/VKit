@@ -1,6 +1,7 @@
 package gui;
 
 import bin.*;
+import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,10 +63,6 @@ public class Controller implements Initializable {
     }
 
     public ProgressBar progressBar;
-    public ProgressBar getProgressBar() {
-        return progressBar;
-    }
-
 
     @FXML
     void buttonPathClick() {
