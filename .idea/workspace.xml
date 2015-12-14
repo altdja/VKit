@@ -75,8 +75,8 @@
       <file leaf-file-name="Core.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bin/Core.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.3394256">
-              <caret line="70" column="17" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.47519583">
+              <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,11 +173,11 @@
         <option value="$PROJECT_DIR$/src/bin/Settings.java" />
         <option value="$PROJECT_DIR$/src/bin/JSONParser.java" />
         <option value="$PROJECT_DIR$/out/production/VKit_windowed_mode/gui/Main.class" />
-        <option value="$PROJECT_DIR$/src/bin/Core.java" />
         <option value="$PROJECT_DIR$/src/gui/Main.java" />
         <option value="$PROJECT_DIR$/src/gui/window.fxml" />
         <option value="$PROJECT_DIR$/src/gui/Controller.java" />
         <option value="$PROJECT_DIR$/src/gui/styles.css" />
+        <option value="$PROJECT_DIR$/src/bin/Core.java" />
       </list>
     </option>
   </component>
@@ -882,8 +882,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bin/Core.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.3394256">
-          <caret line="70" column="17" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.47519583">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

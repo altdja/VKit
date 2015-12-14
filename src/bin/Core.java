@@ -41,6 +41,10 @@ public class Core {
                     bin.JSONParser.pingGroupId();
                     if (bin.JSONParser.isIdErr() == true) {
                         controller.getStatus().appendText(String.valueOf(CurentTime.getCurrentTime() + "Id группы введен не верно, или с ошибкой!\n"));
+                        Platform.runLater(() -> {
+                            controller.getStartButton().setText("Получить ID");
+                            controller.setButtonClicked(false);
+                        });
                     } else {
                         controller.getStatus().appendText(String.valueOf(CurentTime.getCurrentTime() + "Пинг сервера ВКонтакте успешно пройден.\n"));
                         JSONParser.parseIdRepeat();
