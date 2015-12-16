@@ -1,10 +1,13 @@
-.path_button{
-    -fx-background-image: url("../res/search.png");
-    -fx-background-size: 18px;
+.status{
+    -fx-background-color: ghostwhite;
+    -fx-border-color: darkgray;
+}
+.logo_img{
+    -fx-background-image: url("../res/logo.png");
+    -fx-background-size: 90px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-.status{
-    -fx-background-color: aliceblue;
-    -fx-border-color: darkgray;
+.main_window{
+    -fx-background-color: whitesmoke;
 }
