@@ -27,10 +27,6 @@ public class JSONParser {
         JSONParser.fullIdList = fullIdList;
     }
 
-    public static void parseIdRepeat() throws ParseException {
-        //Рудимент!!!Без него не работает, УБРАТЬ!
-    }
-
     public static void pingGroupId() throws ParseException {
         try {
             org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();

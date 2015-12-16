@@ -9,21 +9,21 @@
    <children>
       <Button fx:id="path_button" layoutX="325.0" layoutY="165.0" mnemonicParsing="false" onAction="#buttonPathClick" prefHeight="25.0" prefWidth="30.0" stylesheets="@styles.css" text="..." />
       <TextField fx:id="path_to_file" layoutX="88.0" layoutY="165.0" prefHeight="25.0" prefWidth="232.0" promptText="Путь сохранения файла..." text="C:\VKit\" />
-      <Label fx:id="logo_version" layoutX="151.0" layoutY="101.0" text="VKit v.1.3">
+      <Label fx:id="logo_version" layoutX="151.0" layoutY="101.0" text="VKit v.2.0">
          <font>
             <Font name="Consolas Bold" size="13.0" />
          </font>
       </Label>
-      <Separator layoutX="25.0" layoutY="122.0" prefHeight="5.0" prefWidth="330.0" />
+      <Separator layoutX="18.0" layoutY="122.0" prefHeight="5.0" prefWidth="330.0" />
       <TextField fx:id="url_to_group" layoutX="88.0" layoutY="133.0" prefHeight="25.0" prefWidth="267.0" promptText="Id группы Вконтакте..." text="redfox_che" />
       <Label alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="15.0" layoutY="137.0" prefHeight="17.0" prefWidth="68.0" text="Id группы:" textAlignment="CENTER" />
       <Label alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="52.0" layoutY="169.0" prefHeight="17.0" prefWidth="30.0" text="Путь:" textAlignment="CENTER" />
-      <Button fx:id="startButton" layoutX="133.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonGetIDClick" prefWidth="100.0" text="Получить ID" />
+      <Button fx:id="startButton" layoutX="117.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonGetIDClick" prefHeight="25.0" prefWidth="133.0" text="Получить список ID" />
       <Label layoutX="21.0" layoutY="236.0" prefHeight="17.0" prefWidth="62.0" text="Состояние:" />
-      <ProgressBar fx:id="progressBar" layoutX="88.0" layoutY="236.0" prefHeight="18.0" prefWidth="267.0" progress="0.0" />
+      <ProgressBar fx:id="progressBar" layoutX="88.0" layoutY="236.0" prefHeight="18.0" prefWidth="232.0" progress="0.0" />
       <Pane fx:id="logo_img" layoutX="143.0" layoutY="14.0" prefHeight="83.0" prefWidth="89.0" styleClass="logo_img" />
       <Accordion layoutX="67.0" layoutY="424.0" />
-    <TitledPane expanded="false" layoutY="265.0" prefHeight="230.0" prefWidth="366.0" text="Подбробности">
+    <TitledPane fx:id="moreInfo" expanded="false" layoutY="265.0" onMouseClicked="#moreInfoAction" prefHeight="230.0" prefWidth="366.0" text="Подбробности">
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
@@ -32,5 +32,6 @@
             </BorderPane>
          </content>
     </TitledPane>
+      <ProgressIndicator fx:id="precessPercent" layoutX="319.0" layoutY="236.0" prefHeight="17.0" prefWidth="42.0" progress="0.0" />
    </children>
 </AnchorPane>

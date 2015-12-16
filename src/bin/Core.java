@@ -9,15 +9,12 @@ import javafx.concurrent.Task;
  */
 public class Core {
     static Controller controller;
-    static JSONParser jsonParser;
 
     private static String pathToFile;
     private static String urlToGroup;
     private static int idGetRequestRetry;
-
-    public Core(JSONParser jsonParser) {
-        this.jsonParser = jsonParser;
-    }
+    private static boolean buttonClicked = false;
+    private static boolean parseComplite = false;
 
     public Core(Controller controller) {
         this.controller = controller;
@@ -28,9 +25,8 @@ public class Core {
         return task;
     }
 
-
     public static void startProgram() {
-        if (controller.isButtonClicked() == false) {
+        if (buttonClicked == false) {
             task = new Task() {
                 @Override
                 protected Object call() throws Exception {
@@ -43,44 +39,50 @@ public class Core {
                         controller.getStatus().appendText(String.valueOf(CurentTime.getCurrentTime() + "Id группы введен не верно, или с ошибкой!\n"));
                         Platform.runLater(() -> {
                             controller.getStartButton().setText("Получить ID");
-                            controller.setButtonClicked(false);
+                            buttonClicked = false;
                         });
                     } else {
                         controller.getStatus().appendText(String.valueOf(CurentTime.getCurrentTime() + "Пинг сервера ВКонтакте успешно пройден.\n"));
-                        JSONParser.parseIdRepeat();
                         JSONParser.parseCount();
-                        idGetRequestRetry = Integer.parseInt(JSONParser.getCount()) / 1000;
+                        idGetRequestRetry = (Integer.parseInt(JSONParser.getCount()) / 1000) + 1;
                         controller.getStatus().appendText(CurentTime.getCurrentTime() + "Всего пользователей : " + JSONParser.getCount() + "\n");
                         controller.getStatus().appendText(CurentTime.getCurrentTime() + "Всего запросов : " + idGetRequestRetry + "\n");
-                        for (int i = 0; i <= idGetRequestRetry; i++) {
+                        for (int i = 1; i <= idGetRequestRetry; i++) {
                             if (isCancelled()) {
                                 updateProgress(0, 0);
                                 controller.getStatus().appendText(CurentTime.getCurrentTime() + "Отмена.\n");
                                 break;
                             }else{
+                                controller.getStatus().appendText(CurentTime.getCurrentTime() + "Запрос " + i + " из " + idGetRequestRetry + "...");
                                 GetRequest.setOffset(i * 1000);
                                 JSONParser.parseId();
-                                controller.getStatus().appendText(CurentTime.getCurrentTime() + "Запрос " + i + " из " + idGetRequestRetry + "...ОК\n");
+                                controller.getStatus().appendText("OK\n");
                                 updateProgress(i, idGetRequestRetry);
+                                if (i == idGetRequestRetry){
+                                    parseComplite = true;
+                                }
                             }
                         }
-                        controller.getStatus().appendText(CurentTime.getCurrentTime() + "Готово!\n");
-                        FileWriter.fileWriter();
+                        if (parseComplite == true){
+                            controller.getStatus().appendText(CurentTime.getCurrentTime() + "Готово!\n");
+                            FileWriter.fileWriter();
+                            parseComplite = false;
+                        }
                         Platform.runLater(() -> {
                             controller.getStartButton().setText("Получить ID");
-                            controller.setButtonClicked(false);
+                            buttonClicked = false;
                         });
                     }
                     return null;
                 }
             };
-            controller.setButtonClicked(true);
+            buttonClicked = true;
             controller.getStartButton().setText("Отмена");
             new Thread(task).start();
         }else{
             task.cancel();
             controller.getStartButton().setText("Получить ID");
-            controller.setButtonClicked(false);
+            buttonClicked = false;
         }
     }
 }

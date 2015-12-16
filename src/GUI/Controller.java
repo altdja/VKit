@@ -1,14 +1,11 @@
 package gui;
 
 import bin.*;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -16,8 +13,6 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by ALT on 06.11.2015.
@@ -28,6 +23,9 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         status.setText(CurentTime.getCurrentTime()+"Программа запущенна.\n");
     }
+
+    public TitledPane moreInfo;
+    private boolean moreInfoClicked = false;
 
     Core core;
     public Controller() {
@@ -51,18 +49,12 @@ public class Controller implements Initializable {
 
 
     public Button startButton;
-    private boolean buttonClicked = false;
     public Button getStartButton() {
         return startButton;
     }
-    public boolean isButtonClicked() {
-        return buttonClicked;
-    }
-    public void setButtonClicked(boolean buttonClicked) {
-        this.buttonClicked = buttonClicked;
-    }
 
     public ProgressBar progressBar;
+    public ProgressIndicator precessPercent;
 
     @FXML
     void buttonPathClick() {
@@ -84,5 +76,17 @@ public class Controller implements Initializable {
     void buttonGetIDClick() throws ParseException {
         Core.startProgram();
         progressBar.progressProperty().bind(core.getTask().progressProperty());
+        precessPercent.progressProperty().bind(core.getTask().progressProperty());
+    }
+
+    public void moreInfoAction(Event event) {
+        Stage stage = (Stage) moreInfo.getScene().getWindow();
+        if(moreInfoClicked == false) {
+            stage.setHeight(520);
+            moreInfoClicked = true;
+        }else{
+            stage.setHeight(318);
+            moreInfoClicked = false;
+        }
     }
 }
